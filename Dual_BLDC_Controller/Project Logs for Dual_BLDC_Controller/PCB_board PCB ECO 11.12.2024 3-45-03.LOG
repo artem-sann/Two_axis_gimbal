@@ -1,0 +1,145 @@
+Added Component: Designator=C2_U_Схема_принципиальная_JY011(CAP 0805_2012)
+Add component (AddParameter): Name = "Applications"; Value = "Automotive"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Capacitance"; Value = "470 pF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "componentlink1description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "componentlink1url"; Value = "https://api.kemet.com/component-edge/download/datasheet/C0805S471K5RACAUTO.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "componentlink2description"; Value = "DigiKey Link"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "componentlink2url"; Value = "https://www.digikey.com/en/products/detail/kemet/C0805S471K5RACAUTO/9742175"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device Package"; Value = "0805 (2012 Metric)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Features"; Value = "Floating Electrode"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "lastupdated"; Value = "09.02.2024 20:16:08"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Lifecycle Status"; Value = "Active"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "manufacturer"; Value = "KEMET"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Minimum Order"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mounting Type"; Value = "Surface Mount, MLCC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Operating Temperature"; Value = "-55°C ~ 125°C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package / Case"; Value = "0805 (2012 Metric)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "packaging"; Value = "TapeAndReel"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "C0805S471K5RACAUTO"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Status"; Value = "Active"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "partid"; Value = "2648"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "price"; Value = "0.05"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ratings"; Value = "AEC-Q200"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "series"; Value = "SMD Auto X7R FE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Size / Dimension"; Value = "0.079" L x 0.049" W (2.00mm x 1.25mm)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "DigiKey"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "399-19424-1-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Coefficient"; Value = "X7R"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Thickness (Max)"; Value = "0.035" (0.88mm)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "±10%"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "470 pF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage - Rated"; Value = "50V"; VariantName = "[No Variations]"
+Added Component: Designator=C2_U_Схема_принципиальная_JY012(CAP 0805_2012)
+Add component (AddParameter): Name = "Applications"; Value = "Automotive"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Capacitance"; Value = "470 pF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "componentlink1description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "componentlink1url"; Value = "https://api.kemet.com/component-edge/download/datasheet/C0805S471K5RACAUTO.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "componentlink2description"; Value = "DigiKey Link"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "componentlink2url"; Value = "https://www.digikey.com/en/products/detail/kemet/C0805S471K5RACAUTO/9742175"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Device Package"; Value = "0805 (2012 Metric)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Features"; Value = "Floating Electrode"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "lastupdated"; Value = "09.02.2024 20:16:08"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Lifecycle Status"; Value = "Active"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "manufacturer"; Value = "KEMET"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Minimum Order"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mounting Type"; Value = "Surface Mount, MLCC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Operating Temperature"; Value = "-55°C ~ 125°C"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package / Case"; Value = "0805 (2012 Metric)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "packaging"; Value = "TapeAndReel"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "C0805S471K5RACAUTO"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Status"; Value = "Active"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "partid"; Value = "2648"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "price"; Value = "0.05"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ratings"; Value = "AEC-Q200"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "series"; Value = "SMD Auto X7R FE"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Size / Dimension"; Value = "0.079" L x 0.049" W (2.00mm x 1.25mm)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "DigiKey"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "399-19424-1-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Coefficient"; Value = "X7R"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Thickness (Max)"; Value = "0.035" (0.88mm)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance"; Value = "±10%"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "470 pF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage - Rated"; Value = "50V"; VariantName = "[No Variations]"
+Added Component: Designator=J1_U_Схема_принципиальная_JY011(TE 4DB-P108-04)
+Add component (AddParameter): Name = "Barrier Type"; Value = "2 Wall (Dual)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Bottom Termination"; Value = "PC Pin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Color"; Value = "Black"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=2-1437667-4&DocType=Customer+Drawing&DocLang=English"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2Description"; Value = "DigiKey Link"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2URL"; Value = "http://digikey.com/product-detail/en/te-connectivity-amp-connectors/4DB-P108-04/A98474-ND/1277922"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Current Rating (Amps)"; Value = "20A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LastUpdated"; Value = "15.01.2020 4:13:12"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Lifecycle Status"; Value = "Active"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "TE Connectivity AMP Connectors"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Minimum Order"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Circuits"; Value = "4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Rows"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Wire Entries"; Value = "4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Bulk"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "4DB-P108-04"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Status"; Value = "Active"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pitch"; Value = "0.325" (8.26mm)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "2.22"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Series"; Value = "4DB, Buchanan"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "DigiKey"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "A98474-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Terminal Block Type"; Value = "Barrier Block"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Top Termination"; Value = "Screws with Captive Plate"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Wire Gauge"; Value = "12-22 AWG"; VariantName = "[No Variations]"
+Added Component: Designator=J1_U_Схема_принципиальная_JY012(TE 4DB-P108-04)
+Add component (AddParameter): Name = "Barrier Type"; Value = "2 Wall (Dual)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Bottom Termination"; Value = "PC Pin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Color"; Value = "Black"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Datasheet"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "https://www.te.com/commerce/DocumentDelivery/DDEController?Action=srchrtrv&DocNm=2-1437667-4&DocType=Customer+Drawing&DocLang=English"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2Description"; Value = "DigiKey Link"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink2URL"; Value = "http://digikey.com/product-detail/en/te-connectivity-amp-connectors/4DB-P108-04/A98474-ND/1277922"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Current Rating (Amps)"; Value = "20A"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "LastUpdated"; Value = "15.01.2020 4:13:12"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Lifecycle Status"; Value = "Active"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "TE Connectivity AMP Connectors"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Minimum Order"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Circuits"; Value = "4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Rows"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Number of Wire Entries"; Value = "4"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Packaging"; Value = "Bulk"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Number"; Value = "4DB-P108-04"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Part Status"; Value = "Active"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Pitch"; Value = "0.325" (8.26mm)"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "2.22"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Series"; Value = "4DB, Buchanan"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "DigiKey"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "A98474-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Terminal Block Type"; Value = "Barrier Block"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Top Termination"; Value = "Screws with Captive Plate"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Voltage Rating"; Value = "150V"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Wire Gauge"; Value = "12-22 AWG"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=Fwd/Rev_1 Pin=D1-50
+Added Pin To Net: NetName=Fwd/Rev_1 Pin=J1_U_Схема_принципиальная_JY011-1
+Added Net: Name=Fwd/Rev_1
+Added Pin To Net: NetName=Fwd/Rev_2 Pin=D1-47
+Added Pin To Net: NetName=Fwd/Rev_2 Pin=J1_U_Схема_принципиальная_JY012-1
+Added Net: Name=Fwd/Rev_2
+Added Pin To Net: NetName=GND_U_Схема_принципиальная_JY011 Pin=C2_U_Схема_принципиальная_JY011-2
+Added Pin To Net: NetName=GND_U_Схема_принципиальная_JY011 Pin=J1_U_Схема_принципиальная_JY011-4
+Added Net: Name=GND_U_Схема_принципиальная_JY011
+Added Pin To Net: NetName=GND_U_Схема_принципиальная_JY012 Pin=C2_U_Схема_принципиальная_JY012-2
+Added Pin To Net: NetName=GND_U_Схема_принципиальная_JY012 Pin=J1_U_Схема_принципиальная_JY012-4
+Added Net: Name=GND_U_Схема_принципиальная_JY012
+Added Pin To Net: NetName=NetC2_U_Схема_принципиальная_JY011_1 Pin=C2_U_Схема_принципиальная_JY011-1
+Added Pin To Net: NetName=NetC2_U_Схема_принципиальная_JY011_1 Pin=J1_U_Схема_принципиальная_JY011-3
+Added Net: Name=NetC2_U_Схема_принципиальная_JY011_1
+Added Pin To Net: NetName=NetC2_U_Схема_принципиальная_JY012_1 Pin=C2_U_Схема_принципиальная_JY012-1
+Added Pin To Net: NetName=NetC2_U_Схема_принципиальная_JY012_1 Pin=J1_U_Схема_принципиальная_JY012-3
+Added Net: Name=NetC2_U_Схема_принципиальная_JY012_1
+Added Pin To Net: NetName=Speed_1 Pin=D1-60
+Added Pin To Net: NetName=Speed_1 Pin=J1_U_Схема_принципиальная_JY011-2
+Added Net: Name=Speed_1
+Added Pin To Net: NetName=Speed_2 Pin=D1-57
+Added Pin To Net: NetName=Speed_2 Pin=J1_U_Схема_принципиальная_JY012-2
+Added Net: Name=Speed_2
+Added Class: Name=U_Схема_принципиальная_JY011
+Added Class: Name=U_Схема_принципиальная_JY012
+Added Class: Name=Схема_принципиальная_JY01
