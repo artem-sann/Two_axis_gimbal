@@ -1,0 +1,11 @@
+Change Component Comment : Designator=J3 Old Comment=Encoder_1 New Comment=BM06B-SRSS-TB_LF__SN_
+Change Component Comment : Designator=J1 Old Comment=Encoder_2 New Comment=BM06B-SRSS-TB_LF__SN_
+Change Component Comment : Designator=J5 Old Comment=UART New Comment=BM04B-SRSS-TB_LFSN_
+Added Pin To Net: NetName=+12V Pin=Q4_A1-5
+Added Pin To Net: NetName=+12V Pin=Q4_A1-6
+Added Pin To Net: NetName=+12V Pin=Q4_A1-7
+Added Pin To Net: NetName=+12V Pin=Q4_A1-8
+Added Pin To Net: NetName=+12V Pin=Q4_A2-5
+Added Pin To Net: NetName=+12V Pin=Q4_A2-6
+Added Pin To Net: NetName=+12V Pin=Q4_A2-7
+Added Pin To Net: NetName=+12V Pin=Q4_A2-8
