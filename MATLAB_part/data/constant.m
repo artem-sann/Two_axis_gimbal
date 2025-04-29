@@ -42,6 +42,6 @@ kdp = 0;
 kpid = 1;
 
 W_korr = tf([0.047978 11.4104 525.1], [0.00001616 0.1001616 1])
-W_korr_discrete = c2d(W_korr,0.01,'tustin')
+W_korr_discrete = c2d(W_korr,2.2e-4,'tustin')
 
 
