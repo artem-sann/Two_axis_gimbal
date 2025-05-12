@@ -21,12 +21,14 @@
 #include "adc.h"
 #include "dma.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <math.h>
 #define NUM_SAMPLES 20
 
@@ -58,8 +60,32 @@ typedef struct {
     float integral;
 } PID_Controller;
 
+// Структура состояния корректирующего устройства
+typedef struct {
+    float e1; // e[n-1]
+    float e2; // e[n-2]
+    float y1; // y[n-1]
+    float y2; // y[n-2]
+} CorrectorState;
+
+// Структура коэффициентов корректирующего устройства
+typedef struct {
+    float b0, b1, b2;
+    float a1, a2;
+} CorrectorCoefficients;
+
+// �?нициализация коэффициентов корректирующего устройства
+static inline void Corrector_Init(CorrectorCoefficients *coeffs) {
+    coeffs->b0 = 1811.0f;
+    coeffs->b1 = -3529.0f;
+    coeffs->b2 = 1719.0f;
+    coeffs->a1 = -1.188f;
+    coeffs->a2 = 0.1896f;
+}
+
+
 PID_Controller pid1 = {1.0f, 0.001f, 1.0f, 0, 0}; // Тюнинг подбирается экспериментально
-PID_Controller pid2 = {5.0f, 0.001f, 1.0f, 0, 0};
+PID_Controller pid2 = {11.5f, 0.004f, 3.7f, 0, 0};
 
 volatile bool input_mode = false;
 uint32_t adc_value_ch2 = 0;
@@ -70,6 +96,13 @@ volatile uint32_t last_button_press = 0;
 float angle_pot1, angle_pot2;
 float angle_enc1, angle_enc2;
 volatile float sine_angle_2 = 90;
+volatile float step_angle_2 = 90;
+volatile float step_time = 0;
+volatile float pwm1 = 0;
+volatile float pwm2 = 0;
+char uart_buf[50];
+volatile float tim5_itr = 0;
+volatile uint8_t busy = 0;
 
 /* USER CODE END PV */
 
@@ -103,12 +136,28 @@ float GenerateSineValue(float freq_hz, float min_val, float max_val)
     return sine_value;
 }
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+float GenerateStepValue(float time, float min_val, float max_val)
 {
-    if (htim->Instance == TIM3) {
-    	sine_angle_2 = GenerateSineValue(9.0f, 10.0f, 330.0f);
+
+    float step_value = min_val;
+
+    if (step_time >= 0 && step_time <= time/2){
+    	step_value = min_val;
     }
+    else{
+    	step_value = max_val;
+    }
+
+    // Увеличение времени
+    step_time += 1.0f;
+    if (step_time >= time) {
+    	step_time = 0;
+    }
+
+    return step_value;
 }
+
+
 
 float PID_Compute(PID_Controller* pid, float setpoint, float measured)
 {
@@ -126,6 +175,43 @@ float PID_Compute(PID_Controller* pid, float setpoint, float measured)
 }
 
 
+// Ограничение значения в диапазоне [min, max]
+static inline float Clamp(float value, float min, float max) {
+    if (value > max) return max;
+    if (value < min) return min;
+    return value;
+}
+
+// Функция обновления корректирующего устройства
+static inline int16_t Corrector_Update(CorrectorCoefficients *coeffs, CorrectorState *state, float target_angle, float current_angle) {
+    float error = target_angle - current_angle;
+
+
+    if (error > -0.5f && error < 0.5f) {
+        return 0; // Игнорируем малую ошибку, PWM = 0
+    }
+
+    // Вычисление выхода
+    float output = (coeffs->b0 * error)
+                 + (coeffs->b1 * state->e1)
+                 + (coeffs->b2 * state->e2)
+                 - (coeffs->a1 * state->y1)
+                 - (coeffs->a2 * state->y2);
+
+    // Ограничение выхода
+    output = Clamp(output, -839.0f, 839.0f);
+
+    // Обновление состояния
+    state->e2 = state->e1;
+    state->e1 = error;
+    state->y2 = state->y1;
+    state->y1 = output;
+
+    // Возврат значения в целочисленном формате для Ш�?М
+    return (int16_t)output;
+}
+
+
 // Мотор 1: PWM на PB13, направление на PA9
 void SetDirection1(bool cw)
 {
@@ -139,7 +225,7 @@ void SetDirection2(bool cw)
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, cw ? GPIO_PIN_SET : GPIO_PIN_RESET);
 }
 
-// Установка Ш�?М — ожидается значение от 0 до 4095
+// Установка Ш�?М — ожидается значение от 0 до 839
 void PWM_Motor1(uint16_t pwm_value)
 {
     if (pwm_value > 839) pwm_value = 839;
@@ -155,42 +241,19 @@ void PWM_Motor2(uint16_t pwm_value)
 
 void ControlMotor1(float target_angle)
 {
-    float pwm = PID_Compute(&pid1, target_angle, angle_enc2);
+    pwm1 = PID_Compute(&pid1, target_angle, angle_enc2);
 
-    if (pwm >= 0) {
-        SetDirection1(true);  // CW
-    } else {
-        SetDirection1(false); // CCW
-        pwm = -pwm;
-    }
 
-    if (pwm > 839.0f) pwm = 839.0f;
-    PWM_Motor1((uint16_t)pwm);
 }
 
 void ControlMotor2(float target_angle)
 {
-    float pwm = PID_Compute(&pid2, target_angle, angle_enc1);
+    pwm2 = PID_Compute(&pid2, target_angle, angle_enc1);
 
-    if (pwm >= 0) {
-        SetDirection2(true);  // CW
-    } else {
-        SetDirection2(false); // CCW
-        pwm = -pwm;
-    }
 
-    if (pwm > 839.0f) pwm = 839.0f;
-    PWM_Motor2((uint16_t)pwm);
 }
 
 
-void LowPassFilterADC(uint32_t adc_input[4])
-{
-    const float alpha = 0.1;  // от 0 до 1 (чем меньше — сильнее фильтр)
-    for (int i = 0; i < 4; i++) {
-        smooth_adc[i] = smooth_adc[i] * (1 - alpha) + adc_input[i] * alpha;
-    }
-}
 
 void FilterADC(volatile uint32_t adc_input[4])
 {
@@ -284,58 +347,42 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 }
 
-void AutoTunePID(PID_Controller* pid, float (*readAngle)(void), void (*commandMotor)(float))
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-    float ku = 0.0f;         // Критический коэффициент усиления
-    float tu = 0.0f;         // Критический период
-    float target = 90.0f;    // Угол, на который будем подавать импульс
-    float last_angle = 0.0f;
-    float max_angle = -1000.0f;
-    float min_angle = 1000.0f;
 
-    uint32_t start_time = HAL_GetTick();
-    uint32_t last_cross = start_time;
-    int cross_count = 0;
-    bool going_up = true;
 
-    // Подадим импульс и будем смотреть на осцилляции
-    float test_kp = 5.0f; // начнем с усиления
-    pid->kp = test_kp;
-    pid->ki = 0.0f;
-    pid->kd = 0.0f;
 
-    while (cross_count < 10 && HAL_GetTick() - start_time < 10000) // до 10 пересечений центра
-    {
-        float angle = readAngle();
-        float pwm = PID_Compute(pid, target, angle);
-        commandMotor(pwm);
+    if (htim->Instance == TIM5) {
+    	tim5_itr = tim5_itr + 1;
+    	if (pwm1 >= 0) {
+    	        SetDirection1(true);  // CW
+    	    } else {
+    	        SetDirection1(false); // CCW
+    	        pwm1 = -pwm1;
+    	    }
 
-        if ((going_up && angle < target) || (!going_up && angle > target)) {
-            going_up = !going_up;
-            cross_count++;
+    	    if (pwm1 > 839.0f) pwm1 = 839.0f;
+    	    PWM_Motor1((uint16_t)pwm1);
 
-            uint32_t now = HAL_GetTick();
-            if (cross_count == 6) {
-                tu = (now - last_cross) / 1000.0f; // в секундах
-                last_cross = now;
-            }
+    	    if (pwm2 >= 0) {
+    	            SetDirection2(true);  // CW
+    	        } else {
+    	            SetDirection2(false); // CCW
+    	            pwm2 = -pwm2;
+    	        }
 
-            last_cross = now;
-        }
+    	        if (pwm2 > 839.0f) pwm2 = 839.0f;
+    	        PWM_Motor2((uint16_t)pwm2);
 
-        if (angle > max_angle) max_angle = angle;
-        if (angle < min_angle) min_angle = angle;
 
-        HAL_Delay(10);
     }
 
-    ku = test_kp;
-
-    // Применим настройки Ziegler-Nichols для "Pessen Integral Rule"
-    pid->kp = 0.7f * ku;
-    pid->ki = 2.5f * pid->kp / tu;
-    pid->kd = 0.15f * pid->kp * tu;
+    if (htim->Instance == TIM3) {
+        	sine_angle_2 = GenerateSineValue(9.0f, 20.0f, 180.0f);
+        	step_angle_2 = GenerateStepValue(55.0f, 90.0f, 180.0f);
+        }
 }
+
 
 float ReadAngleMotor2(void) {
     return angle_enc1;
@@ -349,6 +396,30 @@ void CommandMotor2(float pwm) {
         pwm = -pwm;
     }
     PWM_Motor2((uint16_t)pwm);
+}
+
+
+void send_data(float v1, float v2) {
+    int len = snprintf(uart_buf, sizeof(uart_buf), "%.3f,%.3f\r\n", v1, v2);
+    HAL_UART_Transmit(&huart6, (uint8_t*)uart_buf, len, HAL_MAX_DELAY);
+}
+
+void send_data_non_blocking(float v1, float v2) {
+    static char buf[50];
+
+    if (!busy) {
+        int len = snprintf(buf, sizeof(buf), "%.2f,%.2f\r\n", v1, v2);
+        if (HAL_UART_Transmit_IT(&huart6, (uint8_t*)buf, len) == HAL_OK) {
+            busy = 1;
+        }
+    }
+}
+
+// В прерывании окончания передачи:
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
+    if (huart->Instance == USART6) {
+        busy = 0;
+    }
 }
 
 /* USER CODE END 0 */
@@ -386,6 +457,8 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM4_Init();
   MX_TIM3_Init();
+  MX_USART6_UART_Init();
+  MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_2);
   HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
@@ -393,6 +466,13 @@ int main(void)
   __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_2, 0);
   __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 0);
   HAL_TIM_Base_Start_IT(&htim3);
+  HAL_TIM_Base_Start_IT(&htim5);
+
+  CorrectorState corrector_state1 = {0};
+  CorrectorState corrector_state2 = {0};
+  CorrectorCoefficients corrector_coeffs;
+
+  Corrector_Init(&corrector_coeffs);
 
   //FilterADC(adc_values);
   //ConvertADCToAngles(adc_raw_avg, &angle_pot1, &angle_pot2, &angle_enc1, &angle_enc2);
@@ -414,8 +494,11 @@ int main(void)
 	      {
 	        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);   // Включить LED PB12
 	        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_RESET);  // Выключить LED PB3
-	        ControlMotor2(angle_pot1);
-	        ControlMotor1(angle_pot2);
+	        //ControlMotor2(angle_pot1);
+	        //ControlMotor1(angle_pot2);
+	        pwm2 = Corrector_Update(&corrector_coeffs, &corrector_state2, angle_pot1, angle_enc1);
+	        pwm1 = Corrector_Update(&corrector_coeffs, &corrector_state1, sine_angle_2, angle_enc1);
+	        //send_data_non_blocking(sine_angle_2, angle_enc1);
 	        //PWM_Motor2(500);
 	        //SetDirection2(false); //против часовой
 
@@ -424,7 +507,10 @@ int main(void)
 	      {
 	        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET); // Выключить LED PB12
 	        HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_SET);    // Включить LED PB3
-	        ControlMotor2(sine_angle_2);
+	        ControlMotor2(step_angle_2);
+	        //pwm2 = Corrector_Update(&corrector_coeffs, &corrector_state2, sine_angle_2, angle_enc1);
+	        //ControlMotor2(sine_angle_2);
+	        send_data_non_blocking(step_angle_2, angle_enc1);
 	        //PWM_Motor2(500);
 	        //SetDirection2(true);
 	      }

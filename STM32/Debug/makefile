@@ -61,7 +61,7 @@ main-build: Two_axis_controller.elf secondary-outputs
 
 # Tool invocations
 Two_axis_controller.elf Two_axis_controller.map: $(OBJS) $(USER_OBJS) C:\Users\Artem\ Sannikov\Desktop\Two_axis_gimbal\STM32\STM32F401CCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Two_axis_controller.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Artem Sannikov\Desktop\Two_axis_gimbal\STM32\STM32F401CCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Two_axis_controller.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "Two_axis_controller.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Artem Sannikov\Desktop\Two_axis_gimbal\STM32\STM32F401CCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Two_axis_controller.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
