@@ -91,6 +91,13 @@ Two_axis_gimbal/
 
 Результаты тестирования представлены в файле НИР2_оформленный.docx
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/303f64fb-a73c-4d52-9d2d-857b19f3f008" height="300">
+  <img src="https://github.com/user-attachments/assets/19c89c8d-ada3-4c4a-bcb4-c41b30fda00d" height="300">
+</p>
+
+
+
 ---
 
 ## 🤝 Участие
